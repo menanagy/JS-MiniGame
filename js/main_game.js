@@ -8,6 +8,12 @@ context.canvas.width = 1800;
 img = document.getElementById("myImg");
 img.style.visibility = "hidden";
 
+var EnemyPositionX=1200, EnemyPositionY=810;
+var lastEnemyPositionX=-1,lastEnemyPositionY=-1;
+var EnemyFlag = 1 , EnemyIndex=0;
+var EnemiesArray=["../images/enemy.gif","../images/Hammer_Bro_death.gif","../images/Mega_Goomba.gif"];
+
+
 /*Create Playe and Choose Character*/
 var character = new playerCharacters(100,true,100,0,0,0,0);//Constructor and Defualt Value 
 
@@ -18,6 +24,56 @@ console.log(CharacterNumber);
 /*Choose Level*/ 
 level=parseInt(localStorage.getItem("localLevelNum"));
 console.log(level);
+
+
+var Enemy= function(  EnemyWidth , EnemyHeight ){
+
+  this.EnemyWidth = EnemyWidth;
+  this.EnemyHeight = EnemyHeight;
+  this.img = new Image();
+  //this.EnemySound = EnemySound;
+
+}
+
+Enemy.prototype.SetEnemyOnScreen= function( EnemyPicturePath ){
+
+  this.img.src = EnemyPicturePath;
+  context.clearRect(lastEnemyPositionX,lastEnemyPositionY,CurrentEnemy.EnemyWidth,CurrentEnemy.EnemyHeight);
+  context.drawImage( this.img , EnemyPositionX , EnemyPositionY ,this.EnemyWidth,this.EnemyHeight);
+
+}
+
+
+UpdateEnemyPosition=function(){
+
+  lastEnemyPositionX = EnemyPositionX;
+  lastEnemyPositionY = EnemyPositionY;
+  EnemyPositionX -= level ;
+ 
+}
+CheckEnemyCollision= function(){
+  //console.log(character.x ,character.y,lastEnemyPositionX,EnemyPositionY);
+  //if(parseInt(character.x)+100 < EnemyPositionX) return ;
+  if(EnemyPositionX <=0 ){
+    //EnemyFlag = 0;                                                   //da 2 conditions y3adini aw yb2a wa2f fa lazm a-check 3ala l y
+    EnemyIndex = Math.floor((Math.random() * 2) + 1);
+    EnemyPositionX = 1200 + character.x, EnemyPositionY=810;  
+    CurrentEnemy.SetEnemyOnScreen(EnemiesArray[EnemyIndex]);
+    //console.log("awl if");
+  }
+  else if( parseInt(EnemyPositionX)  >=  parseInt(character.x) + 100  && parseInt(EnemyPositionX)  <=  parseInt(character.x) + 100 +level  && character.y == 800){
+    
+    EnemyIndex=Math.floor((Math.random() * 2) + 1);
+    EnemyPositionX= 1200 + character.x, EnemyPositionY=810;  
+    CurrentEnemy.SetEnemyOnScreen(EnemiesArray[EnemyIndex]);
+    //console.log("tani if");
+    //update character strenght
+  }
+ // console.log("bara")
+}
+var CurrentEnemy =new Enemy(80,80);
+
+
 /*Move Player Function*/
 loop = function() {
   context.clearRect(character.x, character.y ,character.width,character.height);
@@ -58,6 +114,11 @@ loop = function() {
   //context.fillRect(0, 0, 1800, 1600);// x, y, width, height
   context.drawImage(img, character.x, character.y ,character.width,character.height);
   context.beginPath();
+
+  UpdateEnemyPosition();
+  CheckEnemyCollision();
+  CurrentEnemy.SetEnemyOnScreen(EnemiesArray[EnemyIndex]);
+
   // call update when the browser is ready to draw again
   window.requestAnimationFrame(loop);
 };

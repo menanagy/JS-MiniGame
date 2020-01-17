@@ -31,23 +31,23 @@ function scrolling(e) {
     }
     else if (e.which == 13)
     {
-        level_Num=Current+1;
+        level_Num=(Current+2)*3;
         localStorage.setItem("localLevelNum",level_Num);
         window.location.href ="GameBackGround.html";
     }
 }
 document.querySelectorAll("button")[0].addEventListener('click',function(){
-    level_Num=1;
+    level_Num=6;
     localStorage.setItem("localLevelNum",level_Num);
     window.location.href ="GameBackGround.html";
 });
 document.querySelectorAll("button")[1].addEventListener('click',function(){
-    level_Num=2;
+    level_Num=9;
     localStorage.setItem("localLevelNum",level_Num);
     window.location.href ="GameBackGround.html";
 });
 document.querySelectorAll("button")[2].addEventListener('click',function(){
-    level_Num=3;
+    level_Num=12;
     localStorage.setItem("localLevelNum",level_Num);
     window.location.href ="GameBackGround.html";
 });
