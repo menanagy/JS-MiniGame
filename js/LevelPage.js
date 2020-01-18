@@ -9,8 +9,8 @@ function scrolling(e) {
         if (Next >= 3) {
             Next = 0
         }
-        $(ArrayButtons).css('background-color', "white")
-        $(ArrayButtons[Next]).css('background-color', "pink")
+        $(ArrayButtons).css('background-color', "rgba(6, 105, 67, 0.982)")
+        $(ArrayButtons[Next]).css('background-color', "rgb(30, 223, 159)")
         Current=Next
         console.log(Current)
         console.log(Next);
@@ -21,8 +21,8 @@ function scrolling(e) {
         if (Previous <= -1) {
             Previous = 2
         }
-        $(ArrayButtons).css('background-color', "white")
-        $(ArrayButtons[Previous]).css('background-color', "pink")
+        $(ArrayButtons).css('background-color', "rgba(6, 105, 67, 0.982)")
+        $(ArrayButtons[Previous]).css('background-color', "rgb(30, 223, 159)")
         Current=Previous
         console.log(Current)
         console.log(Previous)
